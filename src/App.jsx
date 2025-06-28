@@ -1,9 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { mockCertData } from "../mock/mockData";
+import CertGrid from "./container/certGrid/CertGrid";
+import { columnsCerts } from "./utils/columnDef";
 
 function App() {
   return (
-    <div className="">
-      <Button className="bg-amber-400">Click me</Button>
+    <div className="m-2.5">
+      <CertGrid columns={columnsCerts} data={mockCertData}/>
     </div>
   );
 }
