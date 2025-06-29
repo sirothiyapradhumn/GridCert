@@ -1,9 +1,10 @@
 export const columnsCerts = [
   {
     header: "Name",
+    id: "name",
     accessorFn: row => {
-      // return row.name.split("/").slice(-3).join("/");
-      return row.name;
+      return row.name.split("/").slice(-4).join("/");
+      // return row.name;
     }
   },
   {

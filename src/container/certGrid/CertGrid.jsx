@@ -2,6 +2,7 @@ import {
   // ColumnDef,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -13,16 +14,32 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
-export function CertGrid({ columns, data }) {
+function CertGrid({ columns, data }) {
+  const [columnFilters, setColumnFilters] = useState([]);
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      columnFilters,
+    },
   });
 
   return (
     <div className="rounded-md border">
+      <Input
+          placeholder="Search certificate name..."
+          value={table.getColumn("name")?.getFilterValue()}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
+          className="mb-2"
+        />
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
