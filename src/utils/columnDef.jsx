@@ -1,4 +1,4 @@
-export const columnsCerts = [
+export const columnsCerts = (onRowClick) => [
   {
     header: "Name",
     id: "name",
@@ -6,6 +6,21 @@ export const columnsCerts = [
       return row.name.split("/").slice(-4).join("/");
       // return row.name;
     },
+    cell: ({ row }) => (
+      <>
+        <div
+          className="block md:hidden text-blue-600 hover:underline cursor-pointer"
+          onClick={() => {
+            const rowData = row.original;
+            console.log("Row Data:", rowData);
+            onRowClick(rowData);
+          }}
+        >
+          {row.getValue("name")}
+        </div>
+        <div className="hidden md:block">{row.getValue("name")}</div>
+      </>
+    ),
   },
   {
     header: () => <div className="hidden md:block">Env</div>,
